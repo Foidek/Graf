@@ -27,9 +27,6 @@ public class Main extends Application {
 		
 		try {
 			
-			effectively final double a = 0;
-			double c = 0;
-			
 			VBox root = new VBox();
 			Scene scene = new Scene(root,500,600);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
@@ -43,22 +40,21 @@ public class Main extends Application {
 			lbTopic.setFont(Font.font("Times New Roman", FontWeight.BOLD, 14));
 			topBox.getChildren().add(lbTopic);
 			
-			TextField txParamA = new TextField("a");
+			TextField txParamA = new TextField();
 			txParamA.setPrefWidth(40);
+			txParamA.setPromptText("a");
 			topBox.getChildren().add(txParamA);
 			
 			topBox.getChildren().add(new Label("  x^2 + "));
 			
-			TextField txParamC = new TextField("c");
-			txParamC.setPrefWidth(40);
-			topBox.getChildren().add(txParamC);
+			TextField txParamB = new TextField();
+			txParamB.setPrefWidth(40);
+			txParamB.setPromptText("b");
+			topBox.getChildren().add(txParamB);
 			
 			Button btnDraw = new Button("Rysuj wykres");
 			
-			btnDraw.setOnAction(e -> {
-				a = Double.parseDouble(txParamA.getText());
-				
-			});
+			
 			
 			topBox.getChildren().add(btnDraw);
 			
@@ -120,18 +116,22 @@ public class Main extends Application {
 				drawingPane.getChildren().add(linXScale);
 			}
 		
-			Wykres quadraChart = new Wykres(2, -1);
-			drawingPane.getChildren().add(quadraChart.drawPlot());
+			Wykres quadraChart = new Wykres();
 			
-			for (int i = 0; i < 9; i++) {
+			btnDraw.setOnAction(e -> {
 				
-				if (i != 4){
-					drawingPane.getChildren().add(quadraChart.setScale(i));
+				quadraChart.setParamA(Double.parseDouble(txParamA.getText()));
+				quadraChart.setParamB(Double.parseDouble(txParamB.getText()));
+				drawingPane.getChildren().add(quadraChart.drawPlot());
+				
+				for (int i = 0; i < 9; i++) {
+					if (i != 4){
+						drawingPane.getChildren().add(quadraChart.setScale(i));
+					}
 				}
 				
-			}
-			
-			
+			});
+
 			root.getChildren().addAll(topBox, drawingPane);
 			primaryStage.setTitle("Wykres f(x) kwadratowej");
 			primaryStage.setResizable(false);

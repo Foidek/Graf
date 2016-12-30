@@ -8,12 +8,8 @@ import javafx.scene.shape.QuadCurve;
 
 public class Wykres {
 	
-	double a, b;
+	double a, b = 1;
 	
-	Wykres (double a, double b) {
-		this.a = a;
-		this.b = b;
-	}
 	
 	public QuadCurve drawPlot(){
 		
@@ -65,6 +61,14 @@ public class Wykres {
 		
 		return lbl;
 		
+	}
+	
+	public void setParamA(double a) {
+		this.a = a;
+	}
+	
+	public void setParamB(double b) {
+		this.b = b;
 	}
 	
 }
